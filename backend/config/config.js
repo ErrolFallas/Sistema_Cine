@@ -1,41 +1,51 @@
+'use strict';
 require('dotenv').config();
-const { Sequelize } = require('sequelize');
-
-const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
-  {
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT || 3306,
-    dialect: 'mysql',
-    logging: process.env.NODE_ENV === 'development' ? console.log : false,
-    define: {
-      timestamps: true,       // createdAt / updatedAt automáticos
-      underscored: true,      // snake_case en columnas
-      freezeTableName: true,  // evita pluralización de nombres de tabla
-    },
-    pool: {
-      max: 10,
-      min: 0,
-      acquire: 30000,
-      idle: 10000,
-    },
-  }
-);
 
 /**
- * Valida la conexión a la base de datos.
- * Llama a esta función al iniciar el servidor.
+ * Configuración de Sequelize compatible con sequelize-cli.
+ * Lee las credenciales desde las variables de entorno definidas en .env
  */
-const testConnection = async () => {
-  try {
-    await sequelize.authenticate();
-    console.log('✅  Conexión a MySQL establecida correctamente.');
-  } catch (error) {
-    console.error('❌  No se pudo conectar a la base de datos:', error.message);
-    process.exit(1); // detiene el servidor si no hay conexión
-  }
+module.exports = {
+  development: {
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host    : process.env.DB_HOST,
+    port    : parseInt(process.env.DB_PORT, 10) || 3306,
+    dialect : 'mysql',
+    logging : console.log,
+    define  : {
+      timestamps    : true,
+      underscored   : true,   // snake_case en columnas de BD
+      freezeTableName: true,  // sin pluralización automática
+    },
+  },
+  test: {
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: `${process.env.DB_NAME}_test`,
+    host    : process.env.DB_HOST,
+    port    : parseInt(process.env.DB_PORT, 10) || 3306,
+    dialect : 'mysql',
+    logging : false,
+    define  : {
+      timestamps    : true,
+      underscored   : true,
+      freezeTableName: true,
+    },
+  },
+  production: {
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host    : process.env.DB_HOST,
+    port    : parseInt(process.env.DB_PORT, 10) || 3306,
+    dialect : 'mysql',
+    logging : false,
+    define  : {
+      timestamps    : true,
+      underscored   : true,
+      freezeTableName: true,
+    },
+  },
 };
-
-module.exports = { sequelize, testConnection };
