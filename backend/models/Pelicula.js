@@ -48,9 +48,14 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       clasificacion_edad: {
-        // Ej: "G", "PG", "PG-13", "R", "NC-17", "ATP", "+18"
-        type     : DataTypes.STRING(10),
-        allowNull: false,
+        type        : DataTypes.ENUM('G', 'PG', 'PG-13', 'R', 'NC-17'),
+        allowNull   : false,
+        validate    : {
+          isIn: {
+            args: [['G', 'PG', 'PG-13', 'R', 'NC-17']],
+            msg : 'Clasificación inválida. Use: G, PG, PG-13, R o NC-17.',
+          },
+        },
       },
       descripcion: {
         type     : DataTypes.TEXT,

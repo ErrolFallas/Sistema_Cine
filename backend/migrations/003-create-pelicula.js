@@ -24,7 +24,7 @@ module.exports = {
         allowNull: false,
       },
       clasificacion_edad: {
-        type     : Sequelize.STRING(10),
+        type     : Sequelize.ENUM('G', 'PG', 'PG-13', 'R', 'NC-17'),
         allowNull: false,
       },
       descripcion: {

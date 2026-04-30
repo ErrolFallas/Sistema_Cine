@@ -77,9 +77,10 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       precio: {
-        type     : DataTypes.DECIMAL(10, 2),
-        allowNull: false,
-        validate : {
+        type        : DataTypes.DECIMAL(10, 2),
+        allowNull   : false,
+        defaultValue: 0,
+        validate    : {
           min: { args: [0], msg: 'El precio no puede ser negativo.' },
         },
       },

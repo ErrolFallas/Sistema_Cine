@@ -30,8 +30,9 @@ module.exports = {
         defaultValue: 'disponible',
       },
       precio_final: {
-        type     : Sequelize.DECIMAL(10, 2),
-        allowNull: false,
+        type        : Sequelize.DECIMAL(10, 2),
+        allowNull   : false,
+        defaultValue: 0,
       },
       created_at: {
         type        : Sequelize.DATE,
