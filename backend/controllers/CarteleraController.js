@@ -28,7 +28,7 @@ exports.buscarCarteleraId = async (req, res) => {
         if (!infoCarteleraId) {
             res.status(404).json({ message: "La información no existe" })
         } else {
-            res.json(infoUserId)
+            res.json(infoCarteleraId)
         }
 
     } catch (error) {
@@ -40,7 +40,7 @@ exports.buscarCarteleraId = async (req, res) => {
 exports.eliminarCartelera = async (req, res) => {
     try {
         await Cartelera.destroy({
-            where: { id: req.params.id }
+            where: { id_cartelera: req.params.id }
         });
 
         res.json({ message: "Cartelera eliminada" });
@@ -52,7 +52,7 @@ exports.eliminarCartelera = async (req, res) => {
 exports.actualizarCartelera = async (req, res) => {
     try {
         await Cartelera.update(req.body, {
-            where: { id: req.params.id }
+            where: { id_cartelera: req.params.id }
         });
 
         res.json({ message: "Cartelera actualizada" });

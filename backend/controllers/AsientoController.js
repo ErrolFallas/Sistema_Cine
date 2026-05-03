@@ -28,7 +28,7 @@ exports.buscarAsientoId = async (req, res) => {
         if (!infoAsientoId) {
             res.status(404).json({ message: "La información no existe" })
         } else {
-            res.json(infoUserId)
+            res.json(infoAsientoId)
         }
 
     } catch (error) {
@@ -40,7 +40,7 @@ exports.buscarAsientoId = async (req, res) => {
 exports.eliminarAsiento = async (req, res) => {
     try {
         await Asiento.destroy({
-            where: { id: req.params.id }
+            where: { id_asiento: req.params.id }
         });
 
         res.json({ message: "Asiento eliminado" });
@@ -52,7 +52,7 @@ exports.eliminarAsiento = async (req, res) => {
 exports.actualizarAsiento = async (req, res) => {
     try {
         await Asiento.update(req.body, {
-            where: { id: req.params.id }
+            where: { id_asiento: req.params.id }
         });
 
         res.json({ message: "Asiento actualizado" });

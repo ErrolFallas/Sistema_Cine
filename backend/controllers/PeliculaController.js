@@ -28,7 +28,7 @@ exports.buscarPeliculaId = async (req, res) => {
         if (!infoPeliculaId) {
             res.status(404).json({ message: "La información no existe" })
         } else {
-            res.json(infoUserId)
+            res.json(infoPeliculaId)
         }
 
     } catch (error) {
@@ -40,7 +40,7 @@ exports.buscarPeliculaId = async (req, res) => {
 exports.eliminarPelicula = async (req, res) => {
     try {
         await Pelicula.destroy({
-            where: { id: req.params.id }
+            where: { id_pelicula: req.params.id }
         });
 
         res.json({ message: "Película eliminada" });
@@ -52,7 +52,7 @@ exports.eliminarPelicula = async (req, res) => {
 exports.actualizarPelicula = async (req, res) => {
     try {
         await Pelicula.update(req.body, {
-            where: { id: req.params.id }
+            where: { id_pelicula: req.params.id }
         });
 
         res.json({ message: "Película actualizada" });

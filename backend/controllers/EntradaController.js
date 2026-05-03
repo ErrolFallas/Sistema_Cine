@@ -28,7 +28,7 @@ exports.buscarEntradaId = async (req, res) => {
         if (!infoEntradaId) {
             res.status(404).json({ message: "La información no existe" })
         } else {
-            res.json(infoUserId)
+            res.json(infoEntradaId)
         }
 
     } catch (error) {
@@ -40,10 +40,10 @@ exports.buscarEntradaId = async (req, res) => {
 exports.eliminarEntrada = async (req, res) => {
     try {
         await Entrada.destroy({
-            where: { id: req.params.id }
+            where: { id_entrada: req.params.id }
         });
 
-        res.json({ message: " Entrada eliminada" });
+        res.json({ message: "Entrada eliminada" });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -52,7 +52,7 @@ exports.eliminarEntrada = async (req, res) => {
 exports.actualizarEntrada = async (req, res) => {
     try {
         await Entrada.update(req.body, {
-            where: { id: req.params.id }
+            where: { id_entrada: req.params.id }
         });
 
         res.json({ message: "Entrada actualizada" });

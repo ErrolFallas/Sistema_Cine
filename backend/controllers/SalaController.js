@@ -12,8 +12,8 @@ exports.crearSala = async (req, res) => {
 
 exports.buscarSalas = async (req, res) => {
     try {
-        const infoUsers = await Sala.findAll()
-        res.json(infoUsers)
+        const infoSalas = await Sala.findAll()
+        res.json(infoSalas)
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "Error del servidor" })
@@ -23,12 +23,12 @@ exports.buscarSalas = async (req, res) => {
 exports.buscarSalaId = async (req, res) => {
     try {
         const { id } = req.params
-        const infoUserId = await Sala.findByPk(id)
+        const infoSalaId = await Sala.findByPk(id)
 
-        if (!infoUserId) {
+        if (!infoSalaId) {
             res.status(404).json({ message: "La información no existe" })
         } else {
-            res.json(infoUserId)
+            res.json(infoSalaId)
         }
 
     } catch (error) {
@@ -40,7 +40,7 @@ exports.buscarSalaId = async (req, res) => {
 exports.eliminarSala = async (req, res) => {
     try {
         await Sala.destroy({
-            where: { id: req.params.id }
+            where: { id_sala: req.params.id }
         });
 
         res.json({ message: "Sala eliminada" });
@@ -52,7 +52,7 @@ exports.eliminarSala = async (req, res) => {
 exports.actualizarSala = async (req, res) => {
     try {
         await Sala.update(req.body, {
-            where: { id: req.params.id }
+            where: { id_sala: req.params.id }
         });
 
         res.json({ message: "Sala actualizada" });

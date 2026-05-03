@@ -28,7 +28,7 @@ exports.buscarCineId = async (req, res) => {
         if (!infoCineId) {
             res.status(404).json({ message: "La información no existe" })
         } else {
-            res.json({ message:"Cine encontrado",infoCineId})
+            res.json({ message:"Cine encontrado", infoCineId})
         }
 
     } catch (error) {
@@ -40,7 +40,7 @@ exports.buscarCineId = async (req, res) => {
 exports.eliminarCine = async (req, res) => {
     try {
         await Cine.destroy({
-            where: { id: req.params.id }
+            where: { id_cine: req.params.id }
         });
 
         res.json({ message: "Cine eliminado" });
@@ -52,7 +52,7 @@ exports.eliminarCine = async (req, res) => {
 exports.actualizarCine = async (req, res) => {
     try {
         await Cine.update(req.body, {
-            where: { id: req.params.id }
+            where: { id_cine: req.params.id }
         });
 
         res.json({ message: "Cine actualizado" });

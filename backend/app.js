@@ -1,5 +1,7 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const db = require("./models");
 
 const app = express();
 
@@ -27,9 +29,24 @@ app.use("/salas", salaRoute);
 app.use("/tiposala", tipoSalaRoute);
 
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => 
-        {
-            console.log(`Servidor corriendo en puerto http://localhost:${PORT}`);
+const iniciarServidor = async () => {
+    try {
+        // Verificar conexión a MySQL
+        await db.testConnection();
+
+        // Sincronizar tablas (no borra datos existentes)
+        await db.sequelize.sync();
+        console.log("✅  Tablas sincronizadas correctamente.");
+
+        app.listen(PORT, () => {
+            console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
         });
+    } catch (error) {
+        console.error("❌  Error al iniciar el servidor:", error.message);
+        process.exit(1);
+    }
+};
+
+iniciarServidor();

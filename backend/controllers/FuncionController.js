@@ -28,7 +28,7 @@ exports.buscarFuncionId = async (req, res) => {
         if (!infoFuncionId) {
             res.status(404).json({ message: "La información no existe" })
         } else {
-            res.json(infoUserId)
+            res.json(infoFuncionId)
         }
 
     } catch (error) {
@@ -40,7 +40,7 @@ exports.buscarFuncionId = async (req, res) => {
 exports.eliminarFuncion = async (req, res) => {
     try {
         await Funcion.destroy({
-            where: { id: req.params.id }
+            where: { id_funcion: req.params.id }
         });
 
         res.json({ message: "Funcion eliminada" });
@@ -52,7 +52,7 @@ exports.eliminarFuncion = async (req, res) => {
 exports.actualizarFuncion = async (req, res) => {
     try {
         await Funcion.update(req.body, {
-            where: { id: req.params.id }
+            where: { id_funcion: req.params.id }
         });
 
         res.json({ message: "Funcion actualizada" });
