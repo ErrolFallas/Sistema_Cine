@@ -347,3 +347,30 @@ BEGIN
     END IF;
 END$$
 DELIMITER ;
+
+select * from cine;
+select * from tipo_sala;
+select *from sala;
+select * from pelicula;
+select * from cartelera;
+select * from funcion;
+select * from asiento;
+select * from entrada;
+SELECT * FROM entrada ORDER BY id_entrada DESC;
+
+SHOW TRIGGERS LIKE 'funcion';
+
+INSERT INTO entrada (id_funcion, id_asiento, estado, precio_final)
+SELECT 
+    f.id_funcion,
+    a.id_asiento,
+    'disponible',
+    f.precio
+FROM funcion f
+JOIN asiento a ON a.id_sala = f.id_sala
+WHERE NOT EXISTS (
+    SELECT 1 
+    FROM entrada e 
+    WHERE e.id_funcion = f.id_funcion
+    AND e.id_asiento = a.id_asiento
+);

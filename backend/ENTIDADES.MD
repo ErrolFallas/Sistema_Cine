@@ -7,17 +7,18 @@ Estructura de las tablas
 - ciudad
 - pais
 - telefono
+
+- Tipo Sala
+- id_tipo_sala PK
+- nombre
+- descripcion
+
 - Sala
 - id_sala PK
 - id_cine FK
 - nombre
 - capacidad
 - id_tipo_sala FK
-
-- Tipo Sala
-- id_tipo_sala PK
-- nombre
-- descripcion
 
 - Película
 - id_pelicula PK
@@ -43,12 +44,14 @@ Estructura de las tablas
 - hora_inicio
 - hora_fin
 - precio
+
 - Asiento
 - id_asiento PK
 - id_sala FK
 - fila
 - numero
 - tipo
+
 - Entrada
 - id_entrada PK
 - id_funcion FK
